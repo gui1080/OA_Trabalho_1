@@ -642,6 +642,21 @@ int main(){
 
           strcpy(pessoas_aux_F2.OP, opcao_aux);
           insere_lista_ordenada(li, pessoas_aux_F2);
+          if (strcmp(pessoas_aux_F2.Curso, "EC") == 0) 
+          {
+            remove_lista(lEC, At_chave);
+            insere_lista_ordenada(lEC, pessoas_aux_F2);                 // inserimos na lista que se encaixa
+          } 
+          else if (strcmp(pessoas_aux_F2.Curso, "EM") == 0)
+          {
+            remove_lista(lEM, At_chave);
+            insere_lista_ordenada(lEM, pessoas_aux_F2); 
+          }
+          else if (strcmp(pessoas_aux_F2.Curso, "CC") == 0)
+          {
+            remove_lista(lCC, At_chave);
+            insere_lista_ordenada(lCC, pessoas_aux_F2); 
+          }
           break;
 
       
@@ -673,13 +688,45 @@ int main(){
 
           strcpy(pessoas_aux_F2.Turma, turma_aux);
           insere_lista_ordenada(li, pessoas_aux_F2);
+          if (strcmp(pessoas_aux_F2.Curso, "EC") == 0) 
+          {
+            remove_lista(lEC, At_chave);
+            insere_lista_ordenada(lEC, pessoas_aux_F2);                 // inserimos na lista que se encaixa
+          } 
+          else if (strcmp(pessoas_aux_F2.Curso, "EM") == 0)
+          {
+            remove_lista(lEM, At_chave);
+            insere_lista_ordenada(lEM, pessoas_aux_F2); 
+          }
+          else if (strcmp(pessoas_aux_F2.Curso, "CC") == 0)
+          {
+            remove_lista(lCC, At_chave);
+            insere_lista_ordenada(lCC, pessoas_aux_F2); 
+          }
           break;
 
           
         case 5:         //curso
 
           copy(li, At_chave, &pessoas_aux_F2);
-          remove_lista(li, At_chave);
+        
+          if (strcmp(pessoas_aux_F2.Curso, "EC") == 0)               // fazemos comparações e retiramos elementos de sua respectiva lista
+          {
+            remove_lista(lEC, At_chave);
+         
+            } 
+
+          else if (strcmp(pessoas_aux_F2.Curso, "EM") == 0)
+          {
+            remove_lista(lEM, At_chave);
+         
+          }
+
+          else if (strcmp(pessoas_aux_F2.Curso, "CC") == 0)
+          {
+            remove_lista(lCC, At_chave);
+         
+          }
           printf("Escreva seu novo curso!\n");
             
           
@@ -702,6 +749,21 @@ int main(){
 
           strcpy(pessoas_aux_F2.Curso, curso_aux);
           insere_lista_ordenada(li, pessoas_aux_F2);
+          if (strcmp(pessoas_aux_F2.Curso, "EC") == 0) 
+            {
+            insere_lista_ordenada(lEC, pessoas_aux_F2);                 // inserimos na lista que se encaixa
+          } 
+          else if (strcmp(pessoas_aux_F2.Curso, "EM") == 0)
+          {
+            
+            insere_lista_ordenada(lEM, pessoas_aux_F2); 
+          }
+          else if (strcmp(pessoas_aux_F2.Curso, "CC") == 0)
+          {
+            
+            insere_lista_ordenada(lCC, pessoas_aux_F2); 
+          }
+
           break;
       }
       
