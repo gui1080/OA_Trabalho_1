@@ -8,7 +8,7 @@
  */
 
 
-#include <stdlib.h>
+#include <stdlib.h> 
 #include <stdio.h>
 #include <string.h>
 #include "headers.h"
@@ -472,6 +472,14 @@ void Escreve_Menu(int opt){
  		printf("Para ler a Lista 1, digite 0\n");
         printf("Para ler a Lista 2, digite 1\n");              // Menus!
         printf("Para intercalar Listas, digite 2\n");
+	}
+	if(opt == 4){
+	  printf("O que deseja modificar?\n");
+      printf("1 - Matricula\n");
+      printf("2 - Nome\n");
+      printf("3 - Opção\n");
+      printf("4 - Turma\n");
+      printf("5 - Curso\n");
 	}
 	printf("\033[0m");	
 }

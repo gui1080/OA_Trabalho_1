@@ -65,6 +65,7 @@ int main(){
   char linha[65];
   char linha_1[65];
   char linha_aux[30];
+  char At_chaveF[30];
 
   int cont1, cont2;
   char indice_prim_aux[cont][30];
@@ -214,6 +215,7 @@ int main(){
     char info_nome[j][41];
     char info_add[j][16];
     //int repetido;
+    printf("\033[0;33m");
 
 
     memset( comparador, ' ', sizeof(comparador) );
@@ -340,8 +342,8 @@ int main(){
     for(i=0; i<(j+1); i++){                    // convertemos para inteiro, facilitar a organização 
       array_matriculas[i] =  (comparador[i][5] * 1) + (comparador[i][4] * 10) + (comparador[i][3] * 100) + (comparador[i][2] * 1000) + (comparador[i][1] * 10000);
     
-      printf("%d", array_matriculas[i]);
-      printf("\n");
+      //printf("%d", array_matriculas[i]);
+      //printf("\n");
     }
 
     insertionSort(array_matriculas, (j+1) );           // organizamos as matrículas
@@ -371,6 +373,7 @@ int main(){
       }
 
     }    
+    printf("\033[0m");
 
     fclose(fp1);
     fclose(fp2);                    //fechamos arquivos
@@ -455,11 +458,13 @@ int main(){
       printf("%s\n", pessoas_aux_F.Curso);
       pessoas_aux_F.Adress = cont_total+1;
 
+      printf("\033[0;31m");
       printf("\n\nAntes da inserção:\n\n");                         // mostramos os indices antes da inserção 
       printf("Indice Primário:\n\n");
       Escrever_Terminal_Primary(li, cont_total);
       printf("\n\nIndice Secundário:\n\n");
       Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      printf("\033[0m");
 
        
       if (strcmp(pessoas_aux_F.Curso, "EC") == 0) 
@@ -480,12 +485,13 @@ int main(){
     
       printf("%d\n",cont_total);
 
-
+      printf("\033[0;32m");
       printf("\n\nDepois da inserção:\n\n");
       printf("Indice Primário:\n\n");
       Escrever_Terminal_Primary(li, cont_total);                   // mostramos como o arquivo fica após inserção 
       printf("\n\nIndice Secundário:\n\n");
       Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      printf("\033[0m");
 
       fprintf(fpF, "\n%s %s", matricula_aux, nome_aux);
       fprintf(fpF, "%s  %s\t\t %s", pessoas_aux_F.OP, pessoas_aux_F.Curso, pessoas_aux_F.Turma);
@@ -504,11 +510,13 @@ int main(){
       rem_chave[strlen(rem_chave)] = ' ';
       rem_chave[30] = '\0';
 
+      printf("\033[0;31m");
       printf("\n\nAntes da Remoção:\n\n");
       printf("Indice Primário:\n\n");                         // mostramos como esta antes da inserção 
       Escrever_Terminal_Primary(li, cont_total);
       printf("\n\nIndice Secundário:\n\n");
       Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      printf("\033[0m");
 
       int x = remove_lista(li, rem_chave);                   // removemos da lista, mostramos se não dá certo
       if(x == 0){
@@ -522,11 +530,13 @@ int main(){
       remove_lista(lCC, rem_chave);
       cont_total--;
 
+      printf("\033[0;32m");
       printf("\n\nDepois da Remoção:\n\n");              // mostramos após a exclusão 
       printf("Indice Primário:\n\n");
       Escrever_Terminal_Primary(li, cont_total);
       printf("\n\nIndice Secundário:\n\n");
       Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      printf("\033[0m");
     } 
 //------------------------------------------- OPF 3----------------------------------------------- 
 
@@ -534,19 +544,19 @@ int main(){
 
       int opA;
       int pos;
-      printf("O que deseja modificar?\n");
-      printf("1 - Matricula\n");
-      printf("2 - Nome\n");
-      printf("3 - Opção\n");
-      printf("4 - Turma\n");
-      printf("5 - Curso\n");
+      char turma_aux[2];
+      char opcao_aux[3];
+      char curso_aux[3];
+      
+      Escreve_Menu(4);
+
       scanf("%d", &opA);
       getchar();
 
       char At_chave[30];
-      for(i = 0; i<30; i++){
-        At_chave[i] = ' ';
-      }
+
+      memset( At_chave, ' ', sizeof(At_chave) );
+
       printf("\nPor favor insira a chave do registro que deseja atualizar\n");
       scanf("%s", At_chave);
       getchar();
@@ -558,79 +568,188 @@ int main(){
 
         copy(li, At_chave, &pessoas_aux_F2);
         remove_lista(li, At_chave);
-        char At_chaveF[30];
         for(i = 0; i < 30; i++){
           At_chaveF[i] = ' ';
         }
         int aux_cont_valid = 6;
-
-        if(opA == 1){
-        printf("\nPor favor insira a nova Matricula\n");  
-        for(i = 6; i<30; i++){
-          At_chaveF[i] = At_chave[i];
-        }
-        scanf("%s", matricula_aux);
-        getchar();
-        matricula_aux[strlen(matricula_aux)] = ' ';
-        At_chaveF[30] = '\0';
-        for(i = 0; i < 6; i++){
-          At_chaveF[i] = matricula_aux[i];
-        }
-
-      } 
-
-      else if(opA == 2){
-        printf("\nPor favor insira o novo Nome\n");  
-        for(i = 0; i < 6; i++){
-          At_chaveF[i] = At_chave[i];
-        }
-        scanf("%[^\n]", nome_aux);
-        getchar();
-        nome_aux[strlen(nome_aux)] = ' ';
-        printf("%s\n",nome_aux );
-        for(i = 0; i < 41; i++){
-          if((nome_aux[i] != ' ') && (aux_cont_valid < 30)){
-            At_chaveF[aux_cont_valid] = nome_aux[i];
-            aux_cont_valid++;
-          }
-        }
-        At_chaveF[30] = '\0';
       }
 
-      printf("\n\nAntes da Atualização:\n\n");               // mostramos no terminal tudo antes das operações 
-      printf("Indice Primário:\n\n");
-      Escrever_Terminal_Primary(li, cont_total);
-      printf("\n\nIndice Secundário:\n\n");
-      Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      switch(opA){
 
-      strcpy(pessoas_aux_F2.chave, At_chaveF);
-      insere_lista_ordenada(li, pessoas_aux_F2);
+        case 1:
+          printf("\nPor favor insira a nova Matricula\n");  
+          for(i = 6; i<30; i++){
+            At_chaveF[i] = At_chave[i];
+          }
+          scanf("%s", matricula_aux);
+          getchar();
+          matricula_aux[strlen(matricula_aux)] = ' ';
+          At_chaveF[30] = '\0';
+          for(i = 0; i < 6; i++){
+            At_chaveF[i] = matricula_aux[i];
+          }
+          break;
+
+      
+        case 2:
+
+          copy(li, At_chave, &pessoas_aux_F2);
+          remove_lista(li, At_chave);
+
+          printf("\nPor favor insira o novo Nome\n");  
+          for(i = 0; i < 6; i++){
+            At_chaveF[i] = At_chave[i];
+          }
+          scanf("%[^\n]", nome_aux);
+          getchar();
+          nome_aux[strlen(nome_aux)] = ' ';
+          printf("%s\n",nome_aux );
+          for(i = 0; i < 41; i++){
+            if((nome_aux[i] != ' ') && (aux_cont_valid < 30)){
+              At_chaveF[aux_cont_valid] = nome_aux[i];
+              aux_cont_valid++;
+            }
+          }
+          At_chaveF[30] = '\0';
+          break;
+        
+
+        case 3:       //Opcao 
+          
+          copy(li, At_chave, &pessoas_aux_F2);
+          remove_lista(li, At_chave);
+
+          printf("Escreva sua nova Opção!\n");
+          scanf("%s", opcao_aux);
+          getchar();
+          
+          opcao_aux[3] = '\0' ; 
+
+          printf("Opção escolhida:");
+
+          for(i=0 ; i<2; i++){
+            printf("%c", opcao_aux[i]);
+          }
+          printf("\n");
+
+          printf("\033[0;31m");
+          printf("\n\nAntes da Atualização:\n\n");               // mostramos no terminal tudo antes das operações 
+          printf("Indice Primário:\n\n");
+          Escrever_Terminal_Primary(li, cont_total);
+          printf("\n\nIndice Secundário:\n\n");
+          Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+          printf("\033[0m");
+
+          strcpy(pessoas_aux_F2.OP, opcao_aux);
+          insere_lista_ordenada(li, pessoas_aux_F2);
+          break;
+
+      
+
+        case 4:
+                      //turma
+          copy(li, At_chave, &pessoas_aux_F2);
+          remove_lista(li, At_chave);
+
+          printf("Escreva sua nova turma!\n");
+          
+          scanf("%c", &turma_aux[0]);
+          getchar();
+          turma_aux[1] = ' ' ;
+          
+          printf("\nTurma escolhida: ");
+          
+          printf("%s", turma_aux);
+          
+          printf("\n");
+
+          printf("\033[0;31m");
+          printf("\n\nAntes da Atualização:\n\n");               // mostramos no terminal tudo antes das operações 
+          printf("Indice Primário:\n\n");
+          Escrever_Terminal_Primary(li, cont_total);
+          printf("\n\nIndice Secundário:\n\n");
+          Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+          printf("\033[0m");
+
+          strcpy(pessoas_aux_F2.Turma, turma_aux);
+          insere_lista_ordenada(li, pessoas_aux_F2);
+          break;
+
+          
+        case 5:         //curso
+
+          copy(li, At_chave, &pessoas_aux_F2);
+          remove_lista(li, At_chave);
+          printf("Escreva seu novo curso!\n");
+            
+          
+          scanf("%s", curso_aux);
+          getchar();
+          
+          curso_aux[2] = '\0' ;
+          printf("Curso escolhido: ");
+          
+          printf("%s", curso_aux);
+          
+          printf("\n");
+          printf("\033[0;31m");
+          printf("\n\nAntes da Atualização:\n\n");               // mostramos no terminal tudo antes das operações 
+          printf("Indice Primário:\n\n");
+          Escrever_Terminal_Primary(li, cont_total);
+          printf("\n\nIndice Secundário:\n\n");
+          Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+          printf("\033[0m");
+
+          strcpy(pessoas_aux_F2.Curso, curso_aux);
+          insere_lista_ordenada(li, pessoas_aux_F2);
+          break;
+      }
+      
+
+      if(opA == 1 || opA == 2){
+
+        printf("\033[0;31m");
+        printf("\n\nAntes da Atualização:\n\n");               // mostramos no terminal tudo antes das operações 
+        printf("Indice Primário:\n\n");
+        Escrever_Terminal_Primary(li, cont_total);
+        printf("\n\nIndice Secundário:\n\n");
+        Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+        printf("\033[0m");
+
+      
+        strcpy(pessoas_aux_F2.chave, At_chaveF);
+        insere_lista_ordenada(li, pessoas_aux_F2);
+      }
 
       if (strcmp(pessoas_aux_F2.Curso, "EC") == 0)               // fazemos comparações e retiramos elementos de sua respectiva lista
         {
         remove_lista(lEC, At_chave);
         insere_lista_ordenada(lEC, pessoas_aux_F2); 
         } 
+
       else if (strcmp(pessoas_aux_F2.Curso, "EM") == 0)
         {
         remove_lista(lEM, At_chave);
         insere_lista_ordenada(lEM, pessoas_aux_F2); 
         }
+
       else if (strcmp(pessoas_aux_F2.Curso, "CC") == 0)
         {
         remove_lista(lCC, At_chave);
         insere_lista_ordenada(lCC, pessoas_aux_F2); 
         }
 
+      printf("\033[0;32m");
       printf("\n\nDepois da Atualização:\n\n");                    // mostramos no terminal como tudo fica no final (indice primario e secundario)
       printf("Indice Primário:\n\n");
       Escrever_Terminal_Primary(li, cont_total);
       printf("\n\nIndice Secundário:\n\n");
       Escrever_Terminal_Secondary(lEC, lEM, lCC, cont_total);
+      printf("\033[0m");
       
-      }
+     }
 
-    }
+  
 
 //------------------------------------------- OPF 4------------------------------------------------
 
@@ -638,9 +757,11 @@ int main(){
 
      //mostramos tudo no terminal e encerramos o programa
 
+      printf("\033[0;32m");
       Escrever_Arquivos_Primary(li, cont_total, Primary_Index); 
       Escrever_Arquivos_Secondary(lEC, lEM, lCC, cont_total, Secondary_Index, Secondary_Index_List);
-
+      printf("\033[0m");
+      
       fclose(fpF);  
       break;
     }
